@@ -1,6 +1,15 @@
-<input type="text" [(ngModel)]="title" placeholder="Movie Title">
-<input type="text" [(ngModel)]="description" placeholder="Movie Description">
-<button (click)="addMovie()">Add Movie</button>
+<form [formGroup]="movieForm">
+  <label>
+    Title:
+    <input type="text" formControlName="title">
+  </label>
+
+  <label>
+    Description:
+    <input type="text" formControlName="description">
+  </label>
+  <button (click)="addMovie()">Add Movie</button>
+</form>
 
 
 <h1>List of Movies</h1>
