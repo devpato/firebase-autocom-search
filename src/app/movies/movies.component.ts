@@ -4,6 +4,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection
 } from "angularfire2/firestore";
+import { Subject } from "rxjs";
 
 @Component({
   selector: "app-movies",
@@ -12,6 +13,8 @@ import {
 })
 export class MoviesComponent implements OnInit {
   selectedMovieId: string;
+  searchValue: string;
+
   movieForm = new FormGroup({
     title: new FormControl(""),
     description: new FormControl(""),
@@ -19,24 +22,15 @@ export class MoviesComponent implements OnInit {
   });
   movieCollection: AngularFirestoreCollection<any>;
   movieObs: any;
+  movieSearched: any;
+  startAt = new Subject();
+  endAt = new Subject();
   constructor(private afs: AngularFirestore) {}
 
   ngOnInit() {
     this.movieCollection = this.afs.collection("movies");
     this.movieObs = this.movieCollection.valueChanges();
   }
-
-  // addMovie() { //Custome ID
-  //   this.movieCollection
-  //     .doc("myid")
-  //     .set({
-  //       title: this.title,
-  //       description: this.description
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
 
   addMovie() {
     this.movieCollection
@@ -67,8 +61,6 @@ export class MoviesComponent implements OnInit {
       .then(() => {
         this.movieForm.reset();
         this.selectedMovieId = this.movieForm.get("movieId").value;
-        console.log("updated");
-        console.log(this.selectedMovieId);
       });
   }
 
@@ -86,5 +78,19 @@ export class MoviesComponent implements OnInit {
     this.movieForm.get("description").setValue(description);
     this.movieForm.get("movieId").setValue(id);
     this.selectedMovieId = this.movieForm.get("movieId").value;
+  }
+
+  search($event) {
+    let param = $event.target.value;
+    this.startAt.next(param);
+    this.endAt.next(param + "\uf8ff");
+    this.movieSearched = this.afs
+      .collection("movies", ref =>
+        ref
+          .orderBy("title")
+          .startAt(param)
+          .endAt(param + "\uf8ff")
+      )
+      .valueChanges();
   }
 }
