@@ -11,9 +11,11 @@ import {
   styleUrls: ["./movies.component.css"]
 })
 export class MoviesComponent implements OnInit {
+  selectedMovieId: string;
   movieForm = new FormGroup({
     title: new FormControl(""),
-    description: new FormControl("")
+    description: new FormControl(""),
+    movieId: new FormControl("")
   });
   movieCollection: AngularFirestoreCollection<any>;
   movieObs: any;
@@ -54,16 +56,19 @@ export class MoviesComponent implements OnInit {
       });
   }
 
-  updateMovie(movieId: string) {
+  updateMovie() {
+    const id = this.movieForm.get("movieId").value;
     this.movieCollection
-      .doc(movieId)
+      .doc(id)
       .update({
-        // title: this.title,
-        // description: this.description
+        title: this.movieForm.get("title").value,
+        description: this.movieForm.get("description").value
       })
       .then(() => {
         this.movieForm.reset();
+        this.selectedMovieId = this.movieForm.get("movieId").value;
         console.log("updated");
+        console.log(this.selectedMovieId);
       });
   }
 
@@ -74,5 +79,12 @@ export class MoviesComponent implements OnInit {
       .then(() => {
         console.log("deleted");
       });
+  }
+
+  selectMovie(id: string, title: string, description: string) {
+    this.movieForm.get("title").setValue(title);
+    this.movieForm.get("description").setValue(description);
+    this.movieForm.get("movieId").setValue(id);
+    this.selectedMovieId = this.movieForm.get("movieId").value;
   }
 }

@@ -8,7 +8,12 @@
     Description:
     <input type="text" formControlName="description">
   </label>
-  <button (click)="addMovie()">Add Movie</button>
+  <label>
+    Movie Id:
+    <input type="text" formControlName="movieId" disabled>
+  </label>
+  <button *ngIf="selectedMovieId === undefined || selectedMovieId === null" (click)="addMovie()">Add Movie</button>
+  <button *ngIf="selectedMovieId !== undefined && selectedMovieId !== null" (click)="updateMovie()">Update</button>
 </form>
 
 
@@ -18,6 +23,6 @@
   <p>Movie Title: {{movie.title}}</p>
   <p>Movie Description: {{movie.description}}</p>
   <p>Movie Id: {{movie.movieId}}</p>
-  <button (click)="updateMovie(movie.movieId)">Update</button>
   <button (click)="removeMovie(movie.movieId)">Remove</button>
+  <button (click)="selectMovie(movie.movieId, movie.title, movie.description)">Select</button>
 </div>
