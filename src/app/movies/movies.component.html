@@ -1,5 +1,14 @@
-<form>
-  <input type="text" [(ngModel)]="title" placeholder="Movie Title">
-  <input type="text" [(ngModel)]="description" placeholder="Movie Description">
-  <button (click)="addMovie()">Add Movie</button>
-</form>
+<input type="text" [(ngModel)]="title" placeholder="Movie Title">
+<input type="text" [(ngModel)]="description" placeholder="Movie Description">
+<button (click)="addMovie()">Add Movie</button>
+
+
+<h1>List of Movies</h1>
+
+<div *ngFor="let movie of movieObs | async">
+  <p>Movie Title: {{movie.title}}</p>
+  <p>Movie Description: {{movie.description}}</p>
+  <p>Movie Id: {{movie.movieId}}</p>
+  <button (click)="updateMovie(movie.movieId)">Update</button>
+  <button (click)="removeMovie(movie.movieId)">Remove</button>
+</div>
