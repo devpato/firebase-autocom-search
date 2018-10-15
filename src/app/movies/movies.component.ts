@@ -80,8 +80,7 @@ export class MoviesComponent implements OnInit {
     this.selectedMovieId = this.movieForm.get("movieId").value;
   }
 
-  search($event) {
-    let param = $event.target.value;
+  search(param: string) {
     this.startAt.next(param);
     this.endAt.next(param + "\uf8ff");
     this.movieSearched = this.afs

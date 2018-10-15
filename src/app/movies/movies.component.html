@@ -28,7 +28,7 @@
 </div>
 
 <h1>Search Movies</h1>
-<input type="text" [(ngModel)]="searchValue" (keyup)="search($event)" />
+<input type="text" [(ngModel)]="searchValue" (ngModelChange)="search($event)" />
 <!-- <button (click)="search()">Search</button> -->
 
 <div *ngFor="let movie of movieSearched | async">
