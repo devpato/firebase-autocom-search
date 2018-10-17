@@ -4,13 +4,18 @@
 
 export const environment = {
   production: false,
-  firebase : {
+  firebase: {
     apiKey: "AIzaSyABP7Xv37OR9_nez1kTSF_XDEf0UMCCE1I",
     authDomain: "movie-search-92.firebaseapp.com",
     databaseURL: "https://movie-search-92.firebaseio.com",
     projectId: "movie-search-92",
     storageBucket: "movie-search-92.appspot.com",
     messagingSenderId: "288198224164"
+  },
+
+  algolia: {
+    appId: "4E2BHAPAW7",
+    apiKey: "6ef03a5110b4e39cb2a5025fbb3ba5ee"
   }
 };
 
