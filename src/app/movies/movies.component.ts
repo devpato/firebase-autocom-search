@@ -42,7 +42,6 @@ export class MoviesComponent implements OnInit {
         this.movieCollection.doc(docRef.id).update({
           movieId: docRef.id
         });
-        console.log(this.movieForm.get("title").value);
         this.movieForm.reset();
       })
       .catch(err => {
