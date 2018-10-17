@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
 import { environment } from "../../environments/environment";
 import { Chance } from "chance";
+import { NgAisModule } from "angular-instantsearch";
 
 import {
   AngularFirestore,
@@ -43,22 +44,22 @@ export class MoviesComponent implements OnInit {
     this.movieObs = this.movieCollection.valueChanges();
   }
 
-  addMovie() {
-    this.movieCollection
-      .add({
-        title: this.movieForm.get("title").value,
-        description: this.movieForm.get("description").value
-      })
-      .then(docRef => {
-        this.movieCollection.doc(docRef.id).update({
-          movieId: docRef.id
-        });
-        this.movieForm.reset();
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  // addMovie() {
+  //   this.movieCollection
+  //     .add({
+  //       title: this.movieForm.get("title").value,
+  //       description: this.movieForm.get("description").value
+  //     })
+  //     .then(docRef => {
+  //       this.movieCollection.doc(docRef.id).update({
+  //         movieId: docRef.id
+  //       });
+  //       this.movieForm.reset();
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }
 
   updateMovie() {
     const id = this.movieForm.get("movieId").value;
@@ -109,5 +110,16 @@ export class MoviesComponent implements OnInit {
     } else {
       this.showResults = false;
     }
+  }
+
+  addMovie() {
+    const chance = new Chance();
+    const movie = {
+      title: chance.animal(),
+      description: chance.paragraph(),
+      avatar: chance.avatar({ protocol: "https" })
+    };
+
+    this.movieCollection.doc(movie.title).set(movie);
   }
 }

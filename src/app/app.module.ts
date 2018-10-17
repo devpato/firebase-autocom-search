@@ -18,7 +18,7 @@ import { NgAisModule } from "angular-instantsearch";
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
-    NgAisModule
+    NgAisModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

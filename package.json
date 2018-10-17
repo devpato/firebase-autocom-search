@@ -23,6 +23,7 @@
     "@angular/router": "^6.1.0",
     "angular-instantsearch": "^2.0.4",
     "angularfire2": "^5.0.2",
+    "chance": "^1.0.16",
     "core-js": "^2.5.4",
     "firebase": "^5.5.4",
     "rxjs": "~6.2.0",

@@ -27,31 +27,32 @@
   <button (click)="selectMovie(movie.movieId, movie.title, movie.description)">Select</button>
 </div>
 
-<h1>Search Movies</h1>
-<input type="text" [(ngModel)]="searchValue" (ngModelChange)="search($event)" />
+<!-- <h1>Search Movies</h1>
+<input type="text" [(ngModel)]="searchValue" (ngModelChange)="search($event)" /> -->
 <!-- <button (click)="search()">Search</button> -->
 
 <div *ngFor="let movie of movieSearched | async">
   <p>Movie Title: {{movie.title}}</p>
 </div>
 
-<ng-ais-instantsearch [config]="searchConfig">
+<ais-instantsearch [config]="searchConfig">
 
-  <ng-ais-search-box (change)="searchChanged($event)"></ng-ais-search-box>
+  <ais-search-box (change)="searchChanged($event)"></ais-search-box>
 
-  <ng-ais-hits *ngIf="showResults">
+  <ais-hits *ngIf="showResults">
     <ng-template let-hits="hits">
       <div *ngFor="let hit of hits">
 
         <img [src]="hit.avatar" width="30px">
 
-        <ng-ais-highlight attribute="name" [hit]="hit"></ng-ais-highlight>
+        <ais-highlight attribute="title" [hit]="hit">
+        </ais-highlight>
 
-        <div class="bio">
-          {{ hit.bio | slice:0:30 }}...
+        <div class="description">
+          {{ hit.description | slice:0:30 }}...
         </div>
 
       </div>
     </ng-template>
-  </ng-ais-hits>
-</ng-ais-instantsearch>
+  </ais-hits>
+</ais-instantsearch>
