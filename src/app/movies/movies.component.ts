@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
+import { environment } from "../../environments/environment";
+import { Chance } from "chance";
+
 import {
   AngularFirestore,
   AngularFirestoreCollection
@@ -14,6 +17,14 @@ import { Subject } from "rxjs";
 export class MoviesComponent implements OnInit {
   selectedMovieId: string;
   searchValue: string;
+
+  //Angolia Search
+
+  searchConfig = {
+    ...environment.algolia,
+    indexName: "movies_search"
+  };
+  showResults = false;
 
   movieForm = new FormGroup({
     title: new FormControl(""),
@@ -90,5 +101,13 @@ export class MoviesComponent implements OnInit {
           .endAt(param + "\uf8ff")
       )
       .valueChanges();
+  }
+
+  searchChanged(query) {
+    if (query.length) {
+      this.showResults = true;
+    } else {
+      this.showResults = false;
+    }
   }
 }
