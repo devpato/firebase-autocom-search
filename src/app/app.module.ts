@@ -8,6 +8,8 @@ import { environment } from "../environments/environment";
 import { AppComponent } from "./app.component";
 import { MoviesComponent } from "./movies/movies.component";
 
+import { NgAisModule } from "angular-instantsearch";
+
 @NgModule({
   declarations: [AppComponent, MoviesComponent],
   imports: [
@@ -15,7 +17,8 @@ import { MoviesComponent } from "./movies/movies.component";
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule.enablePersistence()
+    AngularFirestoreModule.enablePersistence(),
+    NgAisModule
   ],
   providers: [],
   bootstrap: [AppComponent]
